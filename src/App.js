@@ -1,28 +1,23 @@
-import './App.css';
 import React, { Component } from "react";
-
-
 class App extends Component {
-  state = {
-    count: this.props.value,
-  };
-
-  handleClick = () => {
-    this.setState({ count: this.state.count + 1 });
-  }
-
-
-
   render() {
     return (<div>
-      <h1>{this.state.count}</h1>
-      <button className="btn btn-danger btn-sm" onClick={this.handleClick}>Increment</button>
-      <button onClick={() => this.props.onDelete(this.props.id)} className="btn m-2">Delete</button>
+      <span className={this.getBadgeClasses()}>{this.formatCount()}</span>
+      <button onClick={() => this.props.onIncrement(this.props.counter)}  className="btn btn-danger btn-sm">Increment</button>
+      <button onClick={() => this.props.onDelete(this.props.counter.id)} className="btn m-2">Delete</button>
     </div>
     )
   }
+  getBadgeClasses() {
+    let classes = "badge m-2 badge-"
+    classes += this.props.counter.value === 0 ? "primary  " : "primary";
+    return classes;
+  }
+  formatCount() {
+    const { value } = this.props.counter;
+    return value === 0 ? "Zero" : value;
+  }
 }
-
 export default App;
 
 
